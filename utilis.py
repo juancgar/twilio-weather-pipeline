@@ -8,11 +8,15 @@ from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv(dotenv_path="Config.env")
+
+root = str(Path.cwd())
+ConfigPath = root + "\Config.env"
+print("path: ",ConfigPath)
+
+load_dotenv(dotenv_path=ConfigPath)
 twilio_phone = os.getenv('TWILIO_PHONE')
-WEATHER_API = os.getenv('WEATHER_API')
-
 
 def get_date():
 
@@ -23,6 +27,7 @@ def get_date():
 
 def request_wapi(api_key,query):
 
+    
     url_clima = 'http://api.weatherapi.com/v1/forecast.json?key='+api_key+'&q='+query+'&days=1&aqi=no&alerts=no'
 
     try :
@@ -57,6 +62,8 @@ def create_df(data):
 
 def send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,df,query):
 
+
+
     account_sid = TWILIO_ACCOUNT_SID
     auth_token = TWILIO_AUTH_TOKEN
 
@@ -66,7 +73,7 @@ def send_message(TWILIO_ACCOUNT_SID,TWILIO_AUTH_TOKEN,input_date,df,query):
                     .create(
                         body='\nHola! \n\n\n El pronostico de lluvia hoy '+ input_date +' en ' + query +' es : \n\n\n ' + str(df),
                         from_=twilio_phone,
-                        to='+8120075281'
+                        to='+528120075281'
                     )
 
     return message.sid

@@ -12,11 +12,15 @@ from datetime import datetime
 from twilio.rest import Client
 import time
 from dotenv import load_dotenv
-from utils import request_wapi,get_forecast,create_df,send_message,get_date
-
+from utilis import request_wapi,get_forecast,create_df,send_message,get_date
+from pathlib import Path
 
 query = 'Tokyo'
-load_dotenv(dotenv_path="Config.env")
+root = str(Path.cwd())
+ConfigPath = root + "\Config.env"
+print("path: ",ConfigPath)
+
+load_dotenv(dotenv_path=ConfigPath)
 
 twilio_acc = os.getenv('TWILIO_ACC')
 twilio_secret = os.getenv('TWILIO_SECRET')
@@ -24,6 +28,7 @@ WEATHER_API = os.getenv('WEATHER_API')
 
 
 input_date = get_date()
+print(WEATHER_API)
 response = request_wapi(WEATHER_API,query)
 
 datos = []
