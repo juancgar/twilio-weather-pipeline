@@ -6,8 +6,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 bucket_name = 'weather-innova-proto'
-my_key= 'AKIA2GY7CI3JQI2J7OC7' 
-my_secret= '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' 
+
 
 
 def getS3Object(s3Client,s3Bucket,filepath):
